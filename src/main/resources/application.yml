@@ -1,0 +1,75 @@
+#springMVC����ͼ������
+spring:
+  mvc:
+    view:
+      prefix: /jsps/
+      suffix: .jsp
+    static-path-pattern: /static/**
+
+
+
+  #�������ݿ���Ϣ
+  datasource:
+    url: jdbc:mysql://123.57.241.100:3306/ybd?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    # ʹ��druid����Դ
+
+  #�����Ȳ���
+  devtools:
+    restart:
+      enabled: true
+  http:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
+  jackson:
+    time-zone: "GMT+8"
+    date-format: "yyyy-MM-dd HH:mm:ss"
+    default-property-inclusion: non_null
+
+  #springBoot ���� rabbitMQ
+  application:
+    name: spring-boot-rabbitmq
+  rabbitmq:
+    host: 192.168.254.161
+    port: 5672
+    username: admin
+    password: admin
+
+#�޸�tomcat�Ķ˿ں�
+server:
+  jsp-servlet:
+    init-parameters:
+      development: true
+  port: 8081
+  address: 0.0.0.0
+#����mybatis��Ϣ
+mybatis:
+  #ע�⣺һ��Ҫ��Ӧmapperӳ��xml�ļ�������·��
+  mapper-locations: classpath:mapper/*.xml
+  # ע�⣺��Ӧʵ�����·�� �����
+  type-aliases-package: com.buba.ybd.pojo
+
+  configuration:
+    # spring boot����mybatis�ķ�ʽ��ӡsql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #�����շ�������
+    map-underscore-to-camel-case: true
+    #����������
+    aggressive-lazy-loading: true
+
+# ����pageHelper��ҳ���������
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+#ueditor�ļ��ϴ�·��������
+web:
+  upload-path: E:/image/sygl/
+
