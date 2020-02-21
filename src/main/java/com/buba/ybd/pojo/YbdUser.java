@@ -10,16 +10,26 @@ public class YbdUser {
   private String phone;
   private String email;
   private Integer integral;
-  private Integer quantization_Integral;
+  private Integer quantizationIntegral;
   private String position;
   private String rolename;
 
   private Integer roleId;
 
+  private Integer chapterSerialNumber;
+
+  public Integer getChapterSerialNumber() {
+    return chapterSerialNumber;
+  }
+
+  public void setChapterSerialNumber(Integer chapterSerialNumber) {
+    this.chapterSerialNumber = chapterSerialNumber;
+  }
+
   public YbdUser() {
   }
 
-  public YbdUser(Integer id, String userName, String password, Integer sex, String phone, String email, Integer integral, Integer quantization_Integral, String position, String rolename, Integer roleId) {
+  public YbdUser(Integer id, String userName, String password, Integer sex, String phone, String email, Integer integral, Integer quantizationIntegral, String position, String rolename, Integer roleId) {
     this.id = id;
     this.userName = userName;
     this.password = password;
@@ -27,7 +37,7 @@ public class YbdUser {
     this.phone = phone;
     this.email = email;
     this.integral = integral;
-    this.quantization_Integral = quantization_Integral;
+    this.quantizationIntegral = quantizationIntegral;
     this.position = position;
     this.rolename = rolename;
     this.roleId = roleId;
@@ -89,12 +99,12 @@ public class YbdUser {
     this.integral = integral;
   }
 
-  public Integer getQuantization_Integral() {
-    return quantization_Integral;
+  public Integer getquantizationIntegral() {
+    return quantizationIntegral;
   }
 
-  public void setQuantization_Integral(Integer quantization_Integral) {
-    this.quantization_Integral = quantization_Integral;
+  public void setquantizationIntegral(Integer quantizationIntegral) {
+    this.quantizationIntegral = quantizationIntegral;
   }
 
   public String getPosition() {
@@ -131,7 +141,7 @@ public class YbdUser {
             ", phone='" + phone + '\'' +
             ", email='" + email + '\'' +
             ", integral=" + integral +
-            ", quantization_Integral=" + quantization_Integral +
+            ", quantizationIntegral=" + quantizationIntegral +
             ", position='" + position + '\'' +
             ", rolename='" + rolename + '\'' +
             ", roleId=" + roleId +

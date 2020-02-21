@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buba.ybd.dao.UserManagerMapper" >
+
+<!--    修改用户信息-->
+    <update id="updateUserInfo">
+        update ybd_user set
+        user_name=#{userName},sex=#{sex},phone=#{phone},email=#{email}
+        where
+        id=#{id}
+    </update>
+
+<!--    修改密码-->
+    <update id="updateUserPassword">
+        update ybd_user set
+        password=#{password}
+        where
+        id=#{id}
+    </update>
+
+<!--    用户列表-->
+    <select id="findManager" resultType="com.buba.ybd.pojo.YbdUser" parameterType="com.buba.ybd.pojo.OrderPageInfo">
+        SELECT * FROM ybd_user
+        LEFT JOIN ybd_user_role ON ybd_user_role.user_id=ybd_user.id
+        WHERE 1=1
+        <if test="info.userName != null and info.userName != ''">
+            and ybd_user.user_name like CONCAT('%',#{info.userName },'%')
+        </if>
+        <if test="info.position != null and info.position != ''">
+            and ybd_user.position like CONCAT('%',#{info.position },'%')
+        </if>
+    </select>
+
+<!--    验证用户唯一性-->
+    <select id="findUserByName" resultType="com.buba.ybd.pojo.YbdUser">
+	  SELECT ybd_user.*,ybd_role.id as roleId,ybd_role.role_name as rolename
+		FROM
+		  ybd_user LEFT JOIN ybd_user_role ON ybd_user.id = ybd_user_role.user_id
+			LEFT JOIN ybd_role ON ybd_user_role.role_id = ybd_role.id
+		WHERE user_name = #{userName}
+    </select>
+
+<!--    添加用户-->
+    <insert id="addUser" parameterType="com.buba.ybd.pojo.UserRoleFormdata"
+            useGeneratedKeys="true" keyProperty="voio.userId">
+        INSERT INTO ybd_user(user_name,password)
+        VALUES (#{voio.username},#{voio.password})
+    </insert>
+
+<!--    添加用户角色-->
+    <insert id="addUserRole" parameterType="com.buba.ybd.pojo.UserRoleFormdata">
+        INSERT INTO ybd_user_role ( user_id, role_id)
+          VALUES
+            (#{voio.userId},#{voio.roleId})
+    </insert>
+
+<!--    删除用户角色-->
+    <delete id="deleteUserRole" >
+        DELETE
+          FROM
+	        ybd_user_role
+          WHERE
+	        user_id = #{userId}
+    </delete>
+
+<!--    删除用户-->
+    <delete id="deleteUser" >
+        DELETE
+          FROM
+	        ybd_user
+        WHERE
+	      id = #{userId}
+    </delete>
+</mapper>

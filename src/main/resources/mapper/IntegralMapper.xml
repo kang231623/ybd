@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buba.ybd.dao.IntegralMapper" >
+
+
+<!--    用户列表-->
+    <select id="findManager" resultType="com.buba.ybd.pojo.YbdUser" parameterType="com.buba.ybd.pojo.OrderPageInfo">
+        SELECT u.*,a.chapter_serial_number FROM ybd_user u,ybd_user_answer_record a
+        WHERE u.id=a.user_id
+        <if test="info.userName != null and info.userName != ''">
+            and u.user_name like CONCAT('%',#{info.userName },'%')
+        </if>
+    </select>
+
+<!--    用户积分兑换操作-->
+    <select id="findExchangeRecords" resultType="com.buba.ybd.pojo.YbdIntegral" parameterType="com.buba.ybd.pojo.OrderPageInfo">
+        select * from ybd_integral where object_user_id=#{info.userId}
+    </select>
+</mapper>

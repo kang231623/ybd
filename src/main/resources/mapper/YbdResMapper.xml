@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buba.ybd.dao.YbdResMapper" >
+  <!-- List<SecRes> loading_res(Integer roleId); -->
+<!--    <select id="loading_res" resultType="com.example.hbgd.pojo.SecRes">-->
+<!--        SELECT sec_res.* FROM sec_role_res-->
+<!--            LEFT JOIN sec_res on sec_role_res.res_id=sec_res.id-->
+<!--          WHERE sec_role_res.role_id = #{roleId}-->
+<!--    </select>-->
+
+
+    <!-- List<SecRes> findRes(); -->
+    <select id="findRes" resultType="com.buba.ybd.pojo.YbdRes">
+        select * from ybd_res
+    </select>
+
+    <!-- int addRoleRes(@Param("voio") UserRoleFormdata voio); -->
+    <insert id="addRoleRes" parameterType="com.buba.ybd.pojo.UserRoleFormdata">
+        INSERT INTO ybd_role_res VALUES
+        <foreach collection="voio.listRes" item="res" separator=",">
+            (#{voio.roleId},#{res})
+        </foreach>
+    </insert>
+
+
+</mapper>
